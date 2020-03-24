@@ -37,7 +37,7 @@
         <asset:javascript src="menu/job-remote-optionsTest.js"/>
     </g:if>
     <g:embedJSON data="${projectNames ?: []}" id="projectNamesData"/>
-    <g:embedJSON data="${nextSchedListIds ?: []}" id="nextScheduled"/>
+    <g:embedJSON data="${jobListIds ?: []}" id="nextScheduled"/>
     <g:embedJSON id="pageParams" data="${[project: params.project?:request.project,]}"/>
     <g:jsMessages code="Node,Node.plural,job.starting.execution,job.scheduling.execution,option.value.required,options.remote.dependency.missing.required,,option.default.button.title,option.default.button.text,option.select.choose.text"/>
     <g:jsMessages
@@ -383,11 +383,11 @@ search
     }
 })
       </g:javascript>
+    <g:set var="wasfiltered" value="${paginateParams?.keySet().grep(~/(?!proj).*Filter|groupPath|customFilters|idlist$/)}"/>
+    <g:embedJSON data="${paginateParams?.subMap(wasfiltered)?:[:]}" id="filterParams"/>
       <asset:javascript src="static/pages/project-activity.js" defer="defer"/>
 </head>
 <body>
-
-    <g:set var="wasfiltered" value="${paginateParams?.keySet().grep(~/(?!proj).*Filter|groupPath|customFilters|idlist$/)}"/>
 
 <content tag="subtitlecss">plain</content>
 <content tag="subtitlesection">
